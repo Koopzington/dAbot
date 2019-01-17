@@ -212,7 +212,7 @@ def get_dev_id(dev_name):
 
 def solve_recaptcha(uuid):
     with open('/token.txt', 'r') as tokenfile:
-      data=tokenfile.read().replace('\n', '')
+      response=tokenfile.read().replace('\n', '')
     dA.headers.update({'referer': url['pxcaptcha'] % uuid})
     params = [response, uuid, 'null']
     post = dA.get(url['login'], cookies={'_pxCaptcha': ':'.join(params)})
