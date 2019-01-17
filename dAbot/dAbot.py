@@ -211,12 +211,8 @@ def get_dev_id(dev_name):
     return dev_id
 
 def solve_recaptcha(uuid):
-    response = ''
-    echo(Fore.YELLOW + 'DeviantArt has detected bot usage')
-    echo(Style.DIM + 'You need to acquire a special token from this page:')
-    echo(Fore.YELLOW + '{url}'.format(url='https://perimeterx.deviantart.com'))
-    while not response:
-        response = input('Please enter a reCAPTCHA token to continue: ').strip()
+    with open('/token.txt', 'r') as tokenfile:
+      data=tokenfile.read().replace('\n', '')
     dA.headers.update({'referer': url['pxcaptcha'] % uuid})
     params = [response, uuid, 'null']
     post = dA.get(url['login'], cookies={'_pxCaptcha': ':'.join(params)})
